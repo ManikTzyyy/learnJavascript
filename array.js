@@ -9,3 +9,4 @@ console.log(warna);
 
 warna[1] = "test";
 console.log(warna);
+

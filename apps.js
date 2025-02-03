@@ -12,11 +12,11 @@ if (nilai > kkm) {
 
 let i = 0;
 
-while (i < 10) {
+while (i < 3) {
   console.log("this using while" + " " + i);
   i++;
 }
 
-for (i = i; i < 20; i++) {
+for (i = i; i < 6; i++) {
   console.log("this using for" + " " + i);
 }

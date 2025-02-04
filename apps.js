@@ -20,3 +20,14 @@ while (i < 3) {
 for (i = i; i < 6; i++) {
   console.log("this using for" + " " + i);
 }
+
+
+// looping untuk mengambil nilai array
+console.log("mengambil nilai array menggunakan looping")
+const hewan = ["kucing","anjing","babi","ayam","bebek","rusa",]
+console.log(hewan)
+console.log("panjang array", hewan.length)
+
+for (let i = 0; i <= hewan.length; i++ ){
+  console.log(i, hewan[i])
+}

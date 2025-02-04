@@ -32,3 +32,20 @@ barang.diskon = 20
 barang.arrayBaru = [21,31,1]
 
 console.log(barang)
+
+
+//object didalam array
+
+const product = [
+    {
+        nama : "apel",
+        harga : 2000,
+    },
+    {
+        nama : "pir",
+        harga : 1000
+    }
+]
+
+console.log(product[0].nama)
+console.log(product[1].harga)

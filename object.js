@@ -10,7 +10,7 @@ const barang = {
         unitedKingdom : "id"
     }
 }
-
+console.log(barang)
 //memanggil property didalam object
 
 console.log(barang.harga)
@@ -20,3 +20,15 @@ console.log(barang.nama)
 
 console.log(barang.size[2])
 console.log(barang.location.indonesia)
+
+//mengganti nilai dari property didalam objek
+
+barang.nama = "celana"
+
+console.log(barang)
+
+//menambahkan property baru
+barang.diskon = 20
+barang.arrayBaru = [21,31,1]
+
+console.log(barang)

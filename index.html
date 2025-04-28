@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDoList</title>
+    <style>
+      body {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        /* overflow: hidden; */
+      }
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .title {
+        padding: 20px;
+        border-bottom: 1px solid gray;
+      }
+      .container-input,
+      .container-item {
+        padding: 10px;
+      }
+
+      input {
+        border: none;
+        padding: 5px 0;
+        border-bottom: 1px solid gray;
+        outline: none;
+      }
+      button {
+        background-color: var(--clr);
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+      button:hover {
+        cursor: pointer;
+      }
+      .container-item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .item {
+        padding: 10px;
+        /* background-color: rgba(128, 128, 128, 0.062); */
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.059);
+      }
+      .item:hover {
+        cursor: pointer;
+      }
+      .toast {
+        position: absolute;
+        /* background-color: green; */
+        color: white;
+        transition: all ease 0.3s;
+        min-width: 150px;
+        padding: 20px 10px;
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.363);
+        border-radius: 5px;
+        top: -70px;
+        right: 20px;
+      }
+      .container-item.selesai .item {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="toast">Test</div> -->
+    <div class="title"><h1>To DO</h1></div>
+
+    <div class="container-input">
+      <input type="text" id="input-list" placeholder="Enter text" />
+      <button id="add-btn" style="--clr: green">Add</button>
+      <button id="remove-btn" style="--clr: red">Remove Last</button>
+    </div>
+    <div class="container-item todo wrapper">
+      <div class="item">Wake up</div>
+      <div class="item">Do chores</div>
+    </div>
+    <hr />
+
+    <div class="container-item selesai wrapper">
+      <h2>Selesai</h2>
+      <button id="done-remove-btn" style="--clr: red; width: fit-content">
+        Remove Last
+      </button>
+      <div class="item">Sleep dawg</div>
+    </div>
+
+    <script>
+      /*
+        Tambah Todo
+        ➔ Input teks, klik tombol "Tambah" untuk menambahkan todo ke list.
+
+        Hapus Todo
+        ➔ Klik pada salah satu todo item, muncul konfirmasi ("Yakin mau hapus?"). Kalau "OK", todo dihapus.
+
+        Tandai Selesai
+        ➔ Kalau klik kanan (context menu) di todo item, ubah todo itu jadi bergaris tengah (text-decoration: line-through) untuk menandakan sudah selesai.
+
+        Toast Notification
+        ➔ Setiap menambah, menghapus, atau menandai selesai, muncul toast kecil di kanan atas.
+
+        Bonus (Kalau Mau)
+        ➔ Setiap todo yang sudah selesai tampil di bawah garis pembatas horizontal <hr>
+        ➔ Jadi todo aktif di atas, todo selesai di bawah.
+
+    */
+      const listContainer = document.querySelector(".todo");
+      const selesaiContainer = document.querySelector(".selesai");
+      const input = document.querySelector("#input-list");
+      const addBtn = document.querySelector("#add-btn");
+      const remBtn = document.querySelector("#remove-btn");
+      const doneRemBtn = document.querySelector("#done-remove-btn");
+      const allItems = document.querySelectorAll(".wrapper");
+      const body = document.querySelector("body");
+
+      remBtn.addEventListener("click", () => {
+        removeLast(".todo .item");
+      });
+
+      doneRemBtn.addEventListener("click", () => {
+        removeLast(".selesai .item");
+      });
+
+      addBtn.addEventListener("click", () => {
+        createTodo(input.value);
+      });
+
+      listContainer.addEventListener("contextmenu", (event) => {
+        if (event.target.classList.contains("item")) {
+          event.preventDefault();
+          event.target.style.textDecoration = "line-through";
+          selesaiContainer.append(event.target);
+          showToast("Berhasil menandai item", "warning");
+        }
+      });
+
+      for (const allContianer of allItems) {
+        allContianer.addEventListener("click", (event) => {
+          if (event.target.classList.contains("item")) {
+            if (confirm(`hapus ${event.target.innerText}?`)) {
+              event.target.remove();
+              showToast("Berhasil menghapus item", "danger");
+            }
+          }
+        });
+      }
+
+      function clearInput() {
+        input.value = "";
+      }
+
+      function createTodo(name) {
+        if (name) {
+          const itm = document.createElement("div");
+          itm.setAttribute("class", "item");
+          itm.innerText = name;
+
+          listContainer.append(itm);
+          showToast("Berhasil Menambahkan item", "success");
+
+          clearInput();
+        } else {
+          alert("masukan text");
+        }
+      }
+
+      function removeLast(id) {
+        if (confirm("Anda yakin ingin menghapus?")) {
+          const items = document.querySelectorAll(id);
+          if (items.length > 0) {
+            items[items.length - 1].remove();
+            showToast("Berhasil menghapus item", "danger");
+          } else {
+            alert("Tidak ada item");
+          }
+        }
+      }
+
+      function showToast(text, status) {
+        return new Promise((resolve) => {
+          const toast = document.createElement("div");
+          toast.setAttribute("class", "toast");
+          toast.innerText = text;
+          if (status == "success") {
+            toast.style.backgroundColor = "green";
+          } else if (status == "warning") {
+            toast.style.backgroundColor = "orange";
+          } else {
+            toast.style.backgroundColor = "red";
+          }
+          body.append(toast);
+          setTimeout(() => {
+            toast.style.top = "20px";
+            setTimeout(() => {
+              toast.style.top = "-100px";
+              setTimeout(() => {
+                toast.remove();
+              }, 500);
+            }, 2000);
+          }, 20);
+          resolve();
+        });
+      }
+    </script>
+  </body>
+</html>

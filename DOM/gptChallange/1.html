@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DOM Challenge</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .item {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Favorite Fruits</h1>
+
+    <div id="fruit-list">
+      <div class="item">Apple</div>
+      <div class="item">Banana</div>
+      <div class="item">Cherry</div>
+    </div>
+
+    <button id="add-fruit">Add Fruit</button>
+    <button id="remove-fruit">Remove Last Fruit</button>
+
+    <script>
+      /*
+        Saat tombol "Add Fruit" ditekan, tambahkan buah baru di bawah list. Nama buahnya bebas, misal "Orange".
+
+        Saat tombol "Remove Last Fruit" ditekan, hapus buah terakhir dari daftar.
+
+        Bonus Challenge:
+
+        Kalau semua buah sudah habis, dan kamu tekan "Remove Last Fruit", tampilkan alert('No fruits left!').
+        */
+      // Kamu akan ngoding di sini! 🚀
+      const fruitList = document.querySelector("#fruit-list");
+
+      const add = document.querySelector("#add-fruit");
+      const remove = document.querySelector("#remove-fruit");
+
+      add.addEventListener("click", () => {
+        const createItem = document.createElement("div");
+        createItem.setAttribute("class", "item");
+        createItem.innerText = "Orange";
+        fruitList.append(createItem);
+      });
+
+      remove.addEventListener("click", () => {
+        const item = document.querySelectorAll(".item");
+        if (item.length > 0) {
+          item[item.length - 1].remove();
+        } else {
+          alert("tidak ada item lagi");
+        }
+      });
+    </script>
+  </body>
+</html>

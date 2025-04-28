@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DOM Challenge</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .item {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Favorite Fruits</h1>
+
+    <input type="text" id="fruit-name" placeholder="Enter fruit name" />
+    <button id="add-fruit">Add Fruit</button>
+    <button id="remove-fruit">Remove Last Fruit</button>
+
+    <div id="fruit-list">
+      <div class="item">Apple</div>
+      <div class="item">Banana</div>
+      <div class="item">Cherry</div>
+    </div>
+
+    <script>
+      /*
+        Saat user ketik di input, lalu klik "Add Fruit", tambahkan buah ke list, sesuai dengan teks yang diketik.
+
+        Kalau input kosong dan user klik "Add Fruit", jangan nambah apa-apa, tampilkan alert('Please enter a fruit name').
+
+        Tombol "Remove Last Fruit" tetap berfungsi seperti sebelumnya: hapus buah terakhir
+        Bonus
+        Kalau ketik "Durian", background item durian jadi kuning spesial?
+
+        new challange : ketika item diklik, maka akan terhapus tanpa button remobe
+        */
+      // Kamu ngoding di sini!
+
+      //   ============================================gpt revision================================================
+
+      const remove = document.querySelector("#remove-fruit");
+      const addBttn = document.querySelector("#add-fruit");
+      const inputValue = document.querySelector("#fruit-name");
+      const fruitList = document.querySelector("#fruit-list");
+      const allFruit = document.querySelectorAll(".item");
+      for (item of allFruit) {
+        item.style.transition = "all 0.5s ease";
+      }
+
+      remove.addEventListener("click", () => {
+        const items = document.querySelectorAll(".item");
+        if (items.length > 0) {
+          items[items.length - 1].style.opacity = 0;
+          setTimeout(() => {
+            items[items.length - 1].remove();
+          }, 500);
+        } else {
+          alert("Tidak ada item");
+        }
+      });
+
+      fruitList.addEventListener("click", (event) => {
+        if (event.target.classList.contains("item")) {
+          event.target.style.opacity = 0;
+          removeItemClick(event);
+        }
+      });
+
+      function removeItemClick(event) {
+        if (confirm("yakin hapus?")) {
+          setTimeout(() => {
+            event.target.remove();
+          }, 500);
+        }
+      }
+
+      addBttn.addEventListener("click", () => {
+        const fruitName = inputValue.value.trim();
+
+        if (fruitName) {
+          createItem(fruitName);
+          clearInput();
+        } else {
+          alert("Isikan Input");
+        }
+      });
+
+      function createItem(name) {
+        const createFruit = document.createElement("div");
+        createFruit.setAttribute("class", "item");
+        createFruit.innerText = name;
+        createFruit.style.transition = "all 0.5s ease";
+
+        if (name.toLowerCase() === "durian") {
+          createFruit.style.backgroundColor = "yellow";
+        }
+
+        fruitList.append(createFruit);
+      }
+
+      function clearInput() {
+        inputValue.value = "";
+      }
+    </script>
+  </body>
+</html>

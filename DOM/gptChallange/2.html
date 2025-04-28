@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DOM Challenge</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .item {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Favorite Fruits</h1>
+
+    <input type="text" id="fruit-name" placeholder="Enter fruit name" />
+    <button id="add-fruit">Add Fruit</button>
+    <button id="remove-fruit">Remove Last Fruit</button>
+
+    <div id="fruit-list">
+      <div class="item">Apple</div>
+      <div class="item">Banana</div>
+      <div class="item">Cherry</div>
+    </div>
+
+    <script>
+      /*
+        Saat user ketik di input, lalu klik "Add Fruit", tambahkan buah ke list, sesuai dengan teks yang diketik.
+
+        Kalau input kosong dan user klik "Add Fruit", jangan nambah apa-apa, tampilkan alert('Please enter a fruit name').
+
+        Tombol "Remove Last Fruit" tetap berfungsi seperti sebelumnya: hapus buah terakhir
+        Bonus
+        Kalau ketik "Durian", background item durian jadi kuning spesial? 
+        */
+      // Kamu ngoding di sini!
+
+      const remove = document.querySelector("#remove-fruit");
+      remove.addEventListener("click", () => {
+        const item = document.querySelectorAll(".item");
+        if (item.length > 0) {
+          item[item.length - 1].remove();
+        } else {
+          alert("Tidak ada item");
+        }
+      });
+
+      const addBttn = document.querySelector("#add-fruit");
+
+      addBttn.addEventListener("click", () => {
+        const inputValue = document.querySelector("#fruit-name");
+        if (inputValue.value) {
+          if (inputValue.value == "Durian") {
+            const inputValue = document.querySelector("#fruit-name");
+            const fruitList = document.querySelector("#fruit-list");
+            const createFruit = document.createElement("div");
+            createFruit.style.backgroundColor = "yellow";
+            createFruit.setAttribute("class", "item");
+            createFruit.innerText = inputValue.value;
+            fruitList.append(createFruit);
+            clearInput();
+          } else {
+            createItem();
+          }
+        } else {
+          alert("Isikan Input");
+        }
+      });
+
+      function createItem() {
+        const inputValue = document.querySelector("#fruit-name");
+        const fruitList = document.querySelector("#fruit-list");
+        const createFruit = document.createElement("div");
+        createFruit.setAttribute("class", "item");
+        createFruit.innerText = inputValue.value;
+        fruitList.append(createFruit);
+        clearInput();
+      }
+
+      function clearInput() {
+        const inputValue = document.querySelector("#fruit-name");
+        inputValue.value = "";
+      }
+
+      //   ============================================gpt revision================================================
+
+    //   const remove = document.querySelector("#remove-fruit");
+    //   const addBttn = document.querySelector("#add-fruit");
+    //   const inputValue = document.querySelector("#fruit-name");
+    //   const fruitList = document.querySelector("#fruit-list");
+
+    //   remove.addEventListener("click", () => {
+    //     const items = document.querySelectorAll(".item");
+    //     if (items.length > 0) {
+    //       items[items.length - 1].remove();
+    //     } else {
+    //       alert("Tidak ada item");
+    //     }
+    //   });
+
+    //   addBttn.addEventListener("click", () => {
+    //     const fruitName = inputValue.value.trim();
+
+    //     if (fruitName) {
+    //       createItem(fruitName);
+    //       clearInput();
+    //     } else {
+    //       alert("Isikan Input");
+    //     }
+    //   });
+
+    //   function createItem(name) {
+    //     const createFruit = document.createElement("div");
+    //     createFruit.setAttribute("class", "item");
+    //     createFruit.innerText = name;
+
+    //     if (name.toLowerCase() === "durian") {
+    //       createFruit.style.backgroundColor = "yellow";
+    //     }
+
+    //     fruitList.append(createFruit);
+    //   }
+
+    //   function clearInput() {
+    //     inputValue.value = "";
+    //   }
+    </script>
+  </body>
+</html>

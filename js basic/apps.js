@@ -28,6 +28,6 @@ const hewan = ["kucing","anjing","babi","ayam","bebek","rusa",]
 console.log(hewan)
 console.log("panjang array", hewan.length)
 
-for (let i = 0; i <= hewan.length; i++ ){
+for (let i = 0; i < hewan.length; i++ ){
   console.log(i, hewan[i])
 }

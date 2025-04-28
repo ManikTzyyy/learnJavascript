@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      .img-wrapper {
+        position: relative;
+        height: 100px;
+        width: 100px;
+      }
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Banner</h2>
+    <div class="img-wrapper">
+      <img
+        src="https://cdn.britannica.com/34/240534-050-B8C4B11E/Porcupine-fish-Diodon-hystox.jpg"
+        alt=""
+      />
+    </div>
+    <h2>content</h2>
+    <div class="row">
+      <div class="img-wrapper">
+        <img
+          src="https://media.npr.org/assets/img/2016/06/17/whatafishknows_wide-2c47cf400d1905e13ab85c13e30d9e2da80786f1.jpg?s=1100&c=50&f=jpeg"
+          alt=""
+        />
+      </div>
+      <div class="img-wrapper">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpb2GIlMIC6XoVNAl_8lvnL5kZgOPJil-I6Liu86IxOZXt_6RgcCufLJP5jiaC0CYbyc&usqp=CAU"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <script src="intro.js"></script>
+  </body>
+</html>
